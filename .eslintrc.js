@@ -26,7 +26,9 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', 'react-hooks', 'jsx-a11y', 'prettier'],
-  rules: {},
+  rules: {
+    'react/prop-types': 'off',
+  },
   settings: {
     react: { version: 'detect' },
   },
