@@ -28,6 +28,12 @@ module.exports = {
   plugins: ['react', 'react-hooks', 'jsx-a11y', 'prettier'],
   rules: {
     'react/prop-types': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
   settings: {
     react: { version: 'detect' },
