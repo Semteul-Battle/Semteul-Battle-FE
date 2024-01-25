@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from '@pages/Home';
-import Battle from '@pages/Battle';
 import Announcement from '@pages/Announcement';
+import Battle from '@pages/Battle';
 import QA from '@pages/QA';
 import Introduction from '@pages/Introduction';
 import LogIn from '@pages/LogIn';
