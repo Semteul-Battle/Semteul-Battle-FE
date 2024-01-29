@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { ReactComponent as CheckIcon } from '@assets/CheckIcon.svg';
 
 const fontStyled = css`
   color: #000;
@@ -7,7 +8,7 @@ const fontStyled = css`
   font-weight: 300;
 `;
 
-const inputStyle = css`
+export const inputStyle = css`
   ${fontStyled}
   font-size: 13px;
   display: flex;
@@ -30,7 +31,7 @@ const inputStyle = css`
 export const SignUpWrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 20%;
+  width: 302px;
   margin: 0 auto;
   flex-direction: column;
 `;
@@ -88,6 +89,13 @@ export const DoubleCheck = styled.button`
   background-color: #404040;
 `;
 
+export const StyleCheckIcon = styled(CheckIcon)`
+  position: absolute;
+
+  top: 8px;
+  left: 200px;
+`;
+
 export const IdErrorText = styled.p`
   position: absolute;
   top: 28px;
@@ -132,7 +140,7 @@ export const NameBox = styled.input`
 export const EmailBox = styled.input`
   ${fontStyled}
   ${inputStyle}
-  width: 302px;
+  width: 230px;
   height: 30px;
   margin-bottom: 20px;
 `;
@@ -232,4 +240,58 @@ export const EmailError = styled.p`
   text-align: center;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 10px;
+`;
+
+export const EmailSendButton = styled.button`
+  ${fontStyled}
+  font-size: 13px;
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 70px;
+  height: 33px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  background-color: #404040;
+`;
+
+export const EmailWrapper = styled.div`
+  display: flex;
+  width: 306px;
+`;
+
+export const AuthenticNumber = styled.input`
+  ${fontStyled}
+  ${inputStyle}
+  width: 230px;
+  height: 30px;
+`;
+
+export const AuthenticWrapper = styled.div`
+  display: flex;
+  width: 306px;
+  margin-bottom: 20px;
+`;
+
+export const AuthenticSendButton = styled.button`
+  ${fontStyled}
+  font-size: 13px;
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 70px;
+  height: 33px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
+  background-color: #404040;
 `;

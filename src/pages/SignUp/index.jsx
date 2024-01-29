@@ -23,6 +23,12 @@ import {
   PasswordMismatchError,
   NameError,
   EmailError,
+  StyleCheckIcon,
+  EmailSendButton,
+  EmailWrapper,
+  AuthenticWrapper,
+  AuthenticSendButton,
+  AuthenticNumber,
 } from './styles';
 
 const SignUp = () => {
@@ -37,6 +43,7 @@ const SignUp = () => {
   const [repass, onChangeRePass] = useInput('');
   const [name, onChangeName] = useInput('');
   const [email, onChangeEmail] = useInput('');
+  const [authentication, onChangeAuthentication] = useInput('');
   //eslint-disable-next-line no-unused-vars
   const [school, onChangeSchool] = useInput('');
   //eslint-disable-next-line no-unused-vars
@@ -52,6 +59,7 @@ const SignUp = () => {
   const [nameerror, setNameError] = useState(true);
   //eslint-disable-next-line no-unused-vars
   const [emailerror, setEmailError] = useState(true);
+
   return (
     <SignUpWrapper>
       <SignUpTitle>회원가입</SignUpTitle>
@@ -63,7 +71,8 @@ const SignUp = () => {
           placeholder='아이디를 입력해주세요'
           value={id}
           onChange={onChangeId}
-        />
+        ></IdBox>
+        {!idError && <StyleCheckIcon />}
         <DoubleCheck>중복체크</DoubleCheck>
         {idError && <IdErrorText>이미 존재하는 아이디입니다.</IdErrorText>}
         {passworderror && (
@@ -107,12 +116,26 @@ const SignUp = () => {
       />
 
       <Text>이메일</Text>
-      <EmailBox
-        type='text'
-        placeholder='이메일을 입력해주세요'
-        value={email}
-        onChange={onChangeEmail}
-      />
+      <EmailWrapper>
+        <EmailBox
+          type='text'
+          placeholder='이메일을 입력해주세요'
+          value={email}
+          onChange={onChangeEmail}
+        />
+        <EmailSendButton>전송</EmailSendButton>
+      </EmailWrapper>
+
+      <Text>인증번호</Text>
+      <AuthenticWrapper>
+        <AuthenticNumber
+          type='text'
+          placeholder='인증번호를 입력해주세요'
+          value={authentication}
+          onChange={onChangeAuthentication}
+        />
+        <AuthenticSendButton>확인</AuthenticSendButton>
+      </AuthenticWrapper>
       <HalfContainer>
         <SchoolWrapper>
           <Text>학교</Text>
