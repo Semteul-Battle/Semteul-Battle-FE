@@ -65,8 +65,8 @@ const LogIn = () => {
           <SaveIdCheck type='checkbox' />
         </LeftWrapper>
         <RightWrapper>
-          <Membership>회원가입 /</Membership>
-          <FindPassword>비밀번호 찾기</FindPassword>
+          <Membership to='/signup'>회원가입 /</Membership>
+          <FindPassword to='/findpassword'>비밀번호 찾기</FindPassword>
         </RightWrapper>
 
         {idpasswordError && (

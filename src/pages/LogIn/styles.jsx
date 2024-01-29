@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { ReactComponent as IDIcon } from '@assets/IDIcon.svg';
 import { ReactComponent as PasswordIcon } from '@assets/PasswordIcon.svg';
 
@@ -134,7 +135,7 @@ export const LeftWrapper = styled.div`
   align-items: center;
 `;
 
-export const Membership = styled.button`
+export const Membership = styled(NavLink)`
   ${fontStyled}
   text-align: center;
   font-size: 12px;
@@ -142,11 +143,17 @@ export const Membership = styled.button`
 
   background-color: #fff;
   border: none;
-
   padding: 4px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.active {
+    text-decoration: underline;
+  }
 `;
 
-export const FindPassword = styled.button`
+export const FindPassword = styled(NavLink)`
   ${fontStyled}
   text-align: center;
   font-size: 12px;
@@ -156,6 +163,13 @@ export const FindPassword = styled.button`
   border: none;
 
   padding: 0;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &.active {
+    text-decoration: underline;
+  }
 `;
 
 export const LoginButton = styled.button`
