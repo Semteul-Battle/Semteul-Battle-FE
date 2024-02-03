@@ -23,7 +23,7 @@ export const LogInWrapper = styled.div`
 export const LogInTitle = styled.div`
   ${fontStyled};
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 30px;
   font-style: normal;
   font-weight: 700;
@@ -45,7 +45,7 @@ export const LogInId = styled.div`
 
   margin: 0 auto;
   margin-bottom: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 `;
 
 export const StyleIDIcon = styled(IDIcon)`
@@ -89,7 +89,7 @@ export const LogInpassword = styled.div`
 
   margin: 0 auto;
   margin-bottom: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 `;
 
 export const StylePasswordIcon = styled(PasswordIcon)`
@@ -189,7 +189,11 @@ export const LoginButton = styled.button`
   flex-shrink: 0;
 
   background-color: #404040;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const IdPasswordError = styled.p`
