@@ -1,4 +1,5 @@
 // eslint-disable no-unused-vars
+
 import React, { useCallback, useState } from 'react';
 import {
   SignUpTitle,
@@ -20,7 +21,6 @@ import {
   SchoolBox,
   IdErrorText,
   PasswordError,
-  PasswordMismatchError,
   NameError,
   EmailError,
   StyleCheckIcon,
@@ -29,36 +29,99 @@ import {
   AuthenticWrapper,
   AuthenticSendButton,
   AuthenticNumber,
+  AuthenticNumberError,
 } from './styles';
 
 const SignUp = () => {
-  const useInput = (initialValue) => {
-    const [value, setValue] = useState(initialValue);
-    const onChange = useCallback((e) => setValue(e.target.value), []);
-    return [value, onChange];
+  const [id, SetId] = useState('');
+  const [password, SetPassword] = useState('');
+  const [repassword, SetRePassword] = useState('');
+  const [name, SetName] = useState('');
+  const [email, SetEmail] = useState('');
+  const [authenticnumber, SetAuthenticNumber] = useState('');
+  const [school, SetSchool] = useState('');
+  const [depart, SetDepart] = useState('');
+
+  const [idError, setIdError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordmismatchError, setPasswordMismatchError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [authenticnumberError, setAuthenticNumberError] = useState(false);
+
+  const onChangeId = useCallback((e) => {
+    SetId(e.target.value);
+  }, []);
+
+  const onChangePassword = useCallback(
+    (e) => {
+      SetPassword(e.target.value);
+
+      const validatePassword =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+
+      setPasswordError(!validatePassword.test(e.target.value));
+      setPasswordMismatchError(e.target.value !== repassword);
+    },
+    [password, repassword]
+  );
+
+  const onChangeRePassword = useCallback(
+    (e) => {
+      SetRePassword(e.target.value);
+      setPasswordMismatchError(password !== e.target.value);
+    },
+    [password, repassword]
+  );
+
+  const onChangeName = useCallback((e) => {
+    SetName(e.target.value);
+
+    const validateName = e.target.value.length > 0;
+
+    setNameError(!validateName);
+  }, []);
+
+  const onChangeEmail = useCallback((e) => {
+    SetEmail(e.target.value);
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    setEmailError(!emailPattern.test(e.target.value));
+  }, []);
+
+  const onChangeAuthenticNumber = useCallback((e) => {
+    SetAuthenticNumber(e.target.value);
+  }, []);
+
+  const onChangeSchool = useCallback((e) => {
+    SetSchool(e.target.value);
+  }, []);
+
+  const onChangeDepart = useCallback((e) => {
+    SetDepart(e.target.value);
+  }, []);
+
+  const isAllValid = () => {
+    return (
+      !idError &&
+      !passwordError &&
+      !passwordmismatchError &&
+      !nameError &&
+      !emailError &&
+      !authenticnumberError
+    );
   };
 
-  const [id, onChangeId] = useInput('');
-  const [pass, onChangePass] = useInput('');
-  const [repass, onChangeRePass] = useInput('');
-  const [name, onChangeName] = useInput('');
-  const [email, onChangeEmail] = useInput('');
-  const [authentication, onChangeAuthentication] = useInput('');
-  //eslint-disable-next-line no-unused-vars
-  const [school, onChangeSchool] = useInput('');
-  //eslint-disable-next-line no-unused-vars
-  const [depart, onChangeDepart] = useInput('');
-  //eslint-disable-next-line no-unused-vars
-  const [idError, setIdError] = useState(true);
+  const handleSignUp = () => {
+    if (isAllValid()) {
+      console.log('회원가입이 완료되었습니다.');
+    }
+  };
 
-  //eslint-disable-next-line no-unused-vars
-  const [passworderror, setPasswordError] = useState(true);
-  //eslint-disable-next-line no-unused-vars
-  const [passwordmismatcherror, setPasswordMismatchError] = useState(true);
-  //eslint-disable-next-line no-unused-vars
-  const [nameerror, setNameError] = useState(true);
-  //eslint-disable-next-line no-unused-vars
-  const [emailerror, setEmailError] = useState(true);
+  const handleButtonCheck = () => {
+    console.log('버튼 확인');
+  };
 
   return (
     <SignUpWrapper>
@@ -71,38 +134,47 @@ const SignUp = () => {
           placeholder='아이디를 입력해주세요'
           value={id}
           onChange={onChangeId}
+          //disabled={}
         ></IdBox>
         {!idError && <StyleCheckIcon />}
-        <DoubleCheck>중복체크</DoubleCheck>
+        <DoubleCheck onClick={handleButtonCheck}>중복체크</DoubleCheck>
+
         {idError && <IdErrorText>이미 존재하는 아이디입니다.</IdErrorText>}
-        {passworderror && (
+        {passwordError ? (
           <PasswordError>
             8~16자리 영어 대/소문자, 숫자, 특수문자를 사용해 주세요.
           </PasswordError>
+        ) : (
+          passwordmismatchError && (
+            <PasswordError>비밀번호가 일치하지 않습니다.</PasswordError>
+          )
         )}
-        {passwordmismatcherror && (
-          <PasswordMismatchError>
-            비밀번호가 일치하지 않습니다.
-          </PasswordMismatchError>
+
+        {nameError && <NameError>이름을 입력해주세요.</NameError>}
+
+        {emailError && <EmailError>이메일 형식이 잘못 되었습니다.</EmailError>}
+
+        {authenticnumberError && (
+          <AuthenticNumberError>
+            인증번호가 올바르지 않습니다.
+          </AuthenticNumberError>
         )}
-        {nameerror && <NameError>이름을 입력해주세요.</NameError>}
-        {emailerror && <EmailError>이메일 형식이 잘못 되었습니다.</EmailError>}
       </IdWrapper>
 
       <Text>비밀번호</Text>
       <PasswordBox
         type='password'
         placeholder='비밀번호를 입력해주세요'
-        value={pass}
-        onChange={onChangePass}
+        value={password}
+        onChange={onChangePassword}
       />
 
       <Text>비밀번호 재입력</Text>
       <ConfirmPassword
         type='password'
         placeholder='비밀번호를 다시 입력해주세요'
-        value={repass}
-        onChange={onChangeRePass}
+        value={repassword}
+        onChange={onChangeRePassword}
       />
 
       <Bar />
@@ -123,7 +195,7 @@ const SignUp = () => {
           value={email}
           onChange={onChangeEmail}
         />
-        <EmailSendButton>전송</EmailSendButton>
+        <EmailSendButton onClick={handleButtonCheck}>전송</EmailSendButton>
       </EmailWrapper>
 
       <Text>인증번호</Text>
@@ -131,10 +203,12 @@ const SignUp = () => {
         <AuthenticNumber
           type='text'
           placeholder='인증번호를 입력해주세요'
-          value={authentication}
-          onChange={onChangeAuthentication}
+          value={authenticnumber}
+          onChange={onChangeAuthenticNumber}
         />
-        <AuthenticSendButton>확인</AuthenticSendButton>
+        <AuthenticSendButton onClick={handleButtonCheck}>
+          확인
+        </AuthenticSendButton>
       </AuthenticWrapper>
       <HalfContainer>
         <SchoolWrapper>
@@ -156,7 +230,17 @@ const SignUp = () => {
           />
         </DepartWrapper>
       </HalfContainer>
-      <SignUpButton>회원가입</SignUpButton>
+      <SignUpButton
+        onClick={handleSignUp}
+        color={
+          isAllValid() && authenticnumber && !authenticnumberError
+            ? '#404040'
+            : '#b0b0b0'
+        }
+        disabled={!(isAllValid() && authenticnumber && !authenticnumberError)}
+      >
+        회원가입
+      </SignUpButton>
     </SignUpWrapper>
   );
 };

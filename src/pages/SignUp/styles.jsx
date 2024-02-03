@@ -17,7 +17,8 @@ export const inputStyle = css`
   border: 1px solid #000;
   margin-bottom: 10px;
   margin-right: 8px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding-left: 8px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
   &:focus {
     outline: none;
@@ -41,7 +42,7 @@ export const SignUpTitle = styled.div`
   justify-content: center;
   ${fontStyled};
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 30px;
   font-weight: 700;
 
@@ -52,7 +53,7 @@ export const SignUpTitle = styled.div`
 export const Text = styled.div`
   ${fontStyled}
   font-size: 13px;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 
   display: flex;
   margin-bottom: 4px;
@@ -84,9 +85,12 @@ export const DoubleCheck = styled.button`
   height: 33px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
   background-color: #404040;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const StyleCheckIcon = styled(CheckIcon)`
@@ -102,7 +106,7 @@ export const IdErrorText = styled.p`
   right: 0px;
   color: #f00;
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 10px;
 `;
 
@@ -123,11 +127,11 @@ export const ConfirmPassword = styled.input`
 export const Bar = styled.div`
   margin: 45px auto;
 
-  width: 180px;
+  width: 140px;
   height: 0.5px;
 
   background: #000;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const NameBox = styled.input`
@@ -152,11 +156,11 @@ export const HalfContainer = styled.div`
 `;
 
 export const SchoolWrapper = styled.div`
-  width: 48%;
+  width: 47%;
 `;
 
 export const DepartWrapper = styled.div`
-  width: 48%;
+  width: 47%;
 `;
 
 export const SchoolBox = styled.input`
@@ -187,6 +191,7 @@ export const SignUpButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
   ${fontStyled}
   font-size: 16px;
@@ -199,7 +204,11 @@ export const SignUpButton = styled.button`
   border-radius: 3px;
   margin: 44px auto;
 
-  background-color: #404040;
+  &:hover {
+    cursor: pointer;
+  }
+
+  background-color: ${(props) => props.color};
 `;
 
 export const PasswordError = styled.p`
@@ -208,7 +217,7 @@ export const PasswordError = styled.p`
   right: 0px;
   color: #f00;
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 10px;
 `;
 
@@ -228,7 +237,7 @@ export const NameError = styled.p`
   right: 0px;
   color: #f00;
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 10px;
 `;
 
@@ -238,8 +247,12 @@ export const EmailError = styled.p`
   right: 0px;
   color: #f00;
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 10px;
+`;
+
+export const AuthenticNumberError = styled(EmailError)`
+  top: 454px;
 `;
 
 export const EmailSendButton = styled.button`
@@ -255,9 +268,13 @@ export const EmailSendButton = styled.button`
   height: 33px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
   background-color: #404040;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const EmailWrapper = styled.div`
@@ -291,7 +308,11 @@ export const AuthenticSendButton = styled.button`
   height: 33px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
   background-color: #404040;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
