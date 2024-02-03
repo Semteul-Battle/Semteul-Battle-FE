@@ -8,6 +8,7 @@ import Introduction from '@pages/Introduction';
 import LogIn from '@pages/LogIn';
 import SignUp from '@pages/SignUp';
 import Header from '@layouts/Header';
+import FindPassword from '@pages/FindPassword';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='introduction' element={<Introduction />} />
         <Route path='login' element={<LogIn />} />
         <Route path='signup' element={<SignUp />} />
+        <Route path='findpassword' element={<FindPassword />} />
       </Routes>
     </>
   );

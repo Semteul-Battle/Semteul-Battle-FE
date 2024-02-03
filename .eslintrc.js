@@ -34,6 +34,7 @@ module.exports = {
         endOfLine: 'auto',
       },
     ],
+    'no-unused-vars': 'off',
   },
   settings: {
     react: { version: 'detect' },
