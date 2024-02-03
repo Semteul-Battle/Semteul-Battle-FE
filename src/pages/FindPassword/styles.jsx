@@ -22,14 +22,14 @@ export const FindPasswordWrapper = styled.div`
 export const FindPasswordTitle = styled.div`
   ${fontStyled};
   text-align: center;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   font-size: 30px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin-top: 40px;
+  margin-bottom: 50px;
   //background-color: yellow;
 `;
 
@@ -54,7 +54,7 @@ export const EmailBox = styled.input`
   }
 
   &::placeholder {
-    color: #726c6c;
+    color: #b0b0b0;
   }
 
   //background-color: yellow;
@@ -69,29 +69,48 @@ export const EmailWrapper = styled.div`
 
   border-radius: 3px;
   border: 1px solid #000;
+  border-color: ${(props) => props.color};
 
   margin: 0 auto;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 2px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   //background-color: yellow;
 `;
 
 export const StyleEmailIcon = styled(EmailIcon)`
+  width: 16px;
+  height: 16px;
   margin: 12px;
+
+  & path {
+    fill: ${(props) => props.color};
+  }
 `;
 
 export const StyleKeyIcon = styled(KeyIcon)`
+  width: 16px;
+  height: 16px;
   margin: 12px;
+
+  & path {
+    fill: ${(props) => props.color};
+  }
 `;
 
 export const StyleLockIcon = styled(LockIcon)`
+  width: 16px;
+  height: 16px;
   margin: 12px;
+
+  & path {
+    fill: ${(props) => props.color};
+  }
 `;
 
 export const Bar = styled.div`
-  width: 1px;
+  width: 0.5px;
   height: 16px;
-  background: #000;
+  background: ${(props) => props.color};
 `;
 
 export const SendButton = styled.button`
@@ -108,15 +127,20 @@ export const SendButton = styled.button`
   height: 42px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
-  background-color: #404040;
+  background-color: ${(props) => props.color};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const LineWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
+  position: relative;
 `;
 
 export const KeynumberWrapper = styled.div`
@@ -128,10 +152,11 @@ export const KeynumberWrapper = styled.div`
 
   border-radius: 3px;
   border: 1px solid #000;
+  border-color: ${(props) => props.color};
 
   margin: 0 auto;
   margin-bottom: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   //background-color: yellow;
 `;
 
@@ -141,6 +166,7 @@ export const KeynumberBox = styled.input`
   justify-content: center;
   ${fontStyled}
   margin-left: 4px;
+
   border: none;
   width: 200px;
   background: none;
@@ -154,7 +180,7 @@ export const KeynumberBox = styled.input`
   }
 
   &::placeholder {
-    color: #726c6c;
+    color: #b0b0b0;
   }
 
   //background-color: yellow;
@@ -174,19 +200,24 @@ export const CheckButton = styled.button`
   height: 42px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
 
-  background-color: #404040;
+  background-color: ${(props) => props.color};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const CenterBar = styled.div`
-  margin: 45px auto;
+  margin: 44px auto;
+  margin-bottom: 60px;
 
   width: 180px;
   height: 1px;
 
   background: #000;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const NewPasswordWrapper = styled.div`
@@ -198,11 +229,24 @@ export const NewPasswordWrapper = styled.div`
 
   border-radius: 3px;
   border: 1px solid #000;
+  border-color: ${(props) => props.color};
 
   margin: 0 auto;
   margin-bottom: 12px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   //background-color: yellow;
+
+  position: relative;
+`;
+
+export const PasswordError = styled.p`
+  position: absolute;
+  top: 88px;
+  right: 0px;
+  color: #f00;
+  text-align: center;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  font-size: 10px;
 `;
 
 export const NewPasswordBox = styled.input`
@@ -238,10 +282,11 @@ export const RePasswordWrapper = styled.div`
 
   border-radius: 3px;
   border: 1px solid #000;
+  border-color: ${(props) => props.color};
 
   margin: 0 auto;
   margin-bottom: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   //background-color: yellow;
 `;
 
@@ -249,7 +294,7 @@ export const RePasswordBox = styled.input`
   display: flex;
   justify-content: center;
 
-  width: 310px;
+  width: 229px;
   margin-left: 4px;
   border: none;
 
@@ -282,8 +327,26 @@ export const RePasswordButton = styled.button`
   height: 40px;
   border: none;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   margin: 48px auto;
 
-  background-color: #404040;
+  background-color: ${(props) => props.color};
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const EmailError = styled.p`
+  position: absolute;
+  top: 34px;
+  right: 0px;
+  color: #f00;
+  text-align: center;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  font-size: 10px;
+`;
+
+export const KeynumberError = styled(EmailError)`
+  top: 34px;
 `;
