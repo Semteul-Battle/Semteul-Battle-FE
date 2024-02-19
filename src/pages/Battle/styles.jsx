@@ -57,7 +57,7 @@ export const BattleTitle = styled.div`
   }
 
   &:last-child {
-    background: red;
+    background: #ea173d;
     border-bottom: 1px soild #000;
   }
 `;

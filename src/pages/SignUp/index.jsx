@@ -1,5 +1,3 @@
-// eslint-disable no-unused-vars
-
 import React, { useCallback, useState } from 'react';
 import {
   SignUpTitle,
@@ -109,7 +107,11 @@ const SignUp = () => {
       !passwordmismatchError &&
       !nameError &&
       !emailError &&
-      !authenticnumberError
+      !authenticnumberError &&
+      password &&
+      repassword &&
+      name &&
+      email
     );
   };
 

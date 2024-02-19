@@ -126,7 +126,7 @@ export const ConfirmPassword = styled.input`
 
 export const Bar = styled.div`
   margin: 45px auto;
-
+  margin-bottom: 34px;
   width: 140px;
   height: 0.5px;
 

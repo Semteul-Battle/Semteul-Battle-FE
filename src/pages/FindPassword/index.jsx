@@ -84,9 +84,9 @@ const FindPassword = () => {
     <FindPasswordWrapper>
       <FindPasswordTitle>비밀번호 재설정</FindPasswordTitle>
       <LineWrapper>
-        <EmailWrapper color={emailConfirm ? '#b0b0b0' : '#000'}>
-          <StyleEmailIcon color={emailConfirm ? '#b0b0b0' : '#000'} />
-          <Bar color={emailConfirm ? '#b0b0b0' : '#000'} />
+        <EmailWrapper color={emailConfirm ? '#b0b0b0' : '#404040'}>
+          <StyleEmailIcon color={emailConfirm ? '#b0b0b0' : '#404040'} />
+          <Bar color={emailConfirm ? '#b0b0b0' : '#404040'} />
           <EmailBox
             type='text'
             placeholder='이메일을 입력해주세요'
@@ -97,7 +97,7 @@ const FindPassword = () => {
         </EmailWrapper>
         <SendButton
           onClick={hanldeCheckButton}
-          color={emailConfirm ? '#b0b0b0' : '#000'}
+          color={emailConfirm ? '#b0b0b0' : '#404040'}
           disabled={emailConfirm}
         >
           전송
@@ -108,9 +108,9 @@ const FindPassword = () => {
       </LineWrapper>
 
       <LineWrapper>
-        <KeynumberWrapper color={emailConfirm ? '#b0b0b0' : '#000'}>
-          <StyleKeyIcon color={emailConfirm ? '#b0b0b0' : '#000'} />
-          <Bar color={emailConfirm ? '#b0b0b0' : '#000'} />
+        <KeynumberWrapper color={emailConfirm ? '#b0b0b0' : '#404040'}>
+          <StyleKeyIcon color={emailConfirm ? '#b0b0b0' : '#404040'} />
+          <Bar color={emailConfirm ? '#b0b0b0' : '#404040'} />
           <KeynumberBox
             type='text'
             placeholder='인증번호를 입력해주세요'
@@ -121,7 +121,7 @@ const FindPassword = () => {
         </KeynumberWrapper>
         <CheckButton
           onClick={hanldeCheckButton}
-          color={emailConfirm ? '#b0b0b0' : '#000'}
+          color={emailConfirm ? '#b0b0b0' : '#404040'}
           disabled={emailConfirm}
         >
           확인
@@ -133,9 +133,9 @@ const FindPassword = () => {
 
       <CenterBar />
 
-      <NewPasswordWrapper color={emailConfirm ? '#000' : '#b0b0b0'}>
-        <StyleLockIcon color={emailConfirm ? '#000' : '#b0b0b0'} />
-        <Bar color={emailConfirm ? '#000' : '#b0b0b0'} />
+      <NewPasswordWrapper color={emailConfirm ? '#404040' : '#b0b0b0'}>
+        <StyleLockIcon color={emailConfirm ? '#404040' : '#b0b0b0'} />
+        <Bar color={emailConfirm ? '#404040' : '#b0b0b0'} />
         <NewPasswordBox
           type='password'
           placeholder='새로운 비밀번호를 입력해주세요'
@@ -154,9 +154,9 @@ const FindPassword = () => {
         )}
       </NewPasswordWrapper>
 
-      <RePasswordWrapper color={emailConfirm ? '#000' : '#b0b0b0'}>
-        <StyleLockIcon color={emailConfirm ? '#000' : '#b0b0b0'} />
-        <Bar color={emailConfirm ? '#000' : '#b0b0b0'} />
+      <RePasswordWrapper color={emailConfirm ? '#404040' : '#b0b0b0'}>
+        <StyleLockIcon color={emailConfirm ? '#404040' : '#b0b0b0'} />
+        <Bar color={emailConfirm ? '#404040' : '#b0b0b0'} />
         <RePasswordBox
           type='password'
           placeholder='비밀번호를 다시 입력해주세요'
@@ -170,7 +170,7 @@ const FindPassword = () => {
         onClick={hanldeCheckButton}
         color={
           repassword !== '' && !repassError && !newpasswordError
-            ? '#000'
+            ? '#404040'
             : '#b0b0b0'
         }
         disabled={!(repassword !== '' && !repassError && !newpasswordError)}
