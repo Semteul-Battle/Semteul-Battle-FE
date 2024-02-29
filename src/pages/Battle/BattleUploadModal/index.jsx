@@ -10,6 +10,7 @@ import {
   TextBoxWrapper,
   TextBoxCenter,
   DateContaner,
+  UploadButtonContainer,
 } from './steyls';
 import BattleRoleSelect from '@components/BttleRoleSelect';
 import BattleDayPicekr from '@components/BattleDayPicekr';
@@ -26,12 +27,9 @@ const BattleUploadModal = () => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
-  const handleTttleChange = useCallback(
-    (e) => {
-      setTitle(e.target.value);
-    },
-    [title]
-  );
+  const handleTttleChange = useCallback((e) => {
+    setTitle(e.target.value);
+  }, []);
 
   const hanldeRole = useCallback((selectedRole) => {
     setRole(selectedRole);
@@ -52,6 +50,8 @@ const BattleUploadModal = () => {
     setCalendarMode('end');
     setIsCalendarOpen(true);
   }, []);
+
+  const handleUploadBattle = useCallback(() => {}, []);
 
   return (
     <>
@@ -100,6 +100,11 @@ const BattleUploadModal = () => {
             </TextBoxCenter>
           </DateContaner>
         </BoxWrapper>
+        <UploadButtonContainer>
+          <button onClick={handleUploadBattle}>
+            <p>대회 등록</p>
+          </button>
+        </UploadButtonContainer>
       </FlexBox>
       <BattleDayPicekr
         isOpen={isCalendarOpen}

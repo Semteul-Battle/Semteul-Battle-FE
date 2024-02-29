@@ -139,3 +139,26 @@ export const TextBoxCenter = styled(TextBox)`
   justify-content: center;
   padding: 0;
 `;
+
+export const UploadButtonContainer = styled.div`
+  margin-top: 36px;
+
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 210px;
+    height: 40px;
+    background: #106d1f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    > p {
+      color: #fff;
+      font-family: 'NanumSquare Neo variable';
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+`;
