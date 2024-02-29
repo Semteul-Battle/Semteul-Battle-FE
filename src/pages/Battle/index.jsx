@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   BattleButton,
   BattleDuration,
@@ -11,13 +11,17 @@ import {
   BattleTitle,
   BattleWrapper,
   FlexBox,
+  UploadButtonWrapper,
 } from '@pages/Battle/styles';
 import BattleContent from '@pages/Battle/BattleContent';
-
-// erd 대회 테이블 state 삭제
+import { ReactComponent as UploadIcon } from '@assets/upload_icon.svg';
+import Modal from '@layouts/Modal';
+import BattleUploadModal from './BattleUploadModal';
 
 const Battle = () => {
   const [battles, setBattles] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   useEffect(() => {
     const rawBattles = [
@@ -25,8 +29,8 @@ const Battle = () => {
         id: 1,
         name: '봄봄배 코드컵',
         autority: 1,
-        start: new Date('2024-01-25T04:00'),
-        end: new Date('2024-01-25T06:00'),
+        start: new Date('2024-01-25T14:13'),
+        end: new Date('2024-01-25T18:00'),
       },
       {
         id: 2,
@@ -69,44 +73,63 @@ const Battle = () => {
       if (leftStatus !== rightStatus) {
         return leftStatus - rightStatus;
       }
+
       return right.start - left.start;
     });
 
     setBattles([...sortBattles]);
   }, []);
 
+  const handleUploadButton = useCallback(() => {
+    setIsUploadModalOpen(true);
+  }, [isUploadModalOpen]);
+
   return (
-    <FlexBox>
-      <BattleWrapper>
-        <BattleHeader>
-          <h5>대회</h5>
-        </BattleHeader>
-        <BattleListWrapper>
-          <BattleInfoWrapper>
-            <BattleTitle>
-              <p>대회명</p>
-            </BattleTitle>
-            <BattleStartTime>
-              <p>시작 시간</p>
-            </BattleStartTime>
-            <BattleDuration>
-              <p>진행 시간</p>
-            </BattleDuration>
-            <BattleStatus>
-              <p>대회 상태</p>
-            </BattleStatus>
-            <BattleButton>
-              <p>상태</p>
-            </BattleButton>
-          </BattleInfoWrapper>
-        </BattleListWrapper>
-        <BattleList>
-          {battles.map((battle) => (
-            <BattleContent key={battle.id} battle={battle} />
-          ))}
-        </BattleList>
-      </BattleWrapper>
-    </FlexBox>
+    <>
+      <FlexBox>
+        <BattleWrapper>
+          <BattleHeader>
+            <h5>대회</h5>
+          </BattleHeader>
+          <BattleListWrapper>
+            <BattleInfoWrapper>
+              <BattleTitle>
+                <p>대회명</p>
+              </BattleTitle>
+              <BattleStartTime>
+                <p>시작 시간</p>
+              </BattleStartTime>
+              <BattleDuration>
+                <p>진행 시간</p>
+              </BattleDuration>
+              <BattleStatus>
+                <p>대회 상태</p>
+              </BattleStatus>
+              <BattleButton>
+                <p>상태</p>
+              </BattleButton>
+            </BattleInfoWrapper>
+          </BattleListWrapper>
+          <BattleList>
+            {battles.map((battle) => (
+              <BattleContent key={battle.id} battle={battle} />
+            ))}
+          </BattleList>
+          <UploadButtonWrapper>
+            <UploadIcon onClick={handleUploadButton} />
+          </UploadButtonWrapper>
+        </BattleWrapper>
+        {isUploadModalOpen && (
+          <Modal
+            width='512px'
+            height='fit-content'
+            setModalOpen={setIsUploadModalOpen}
+          >
+            <BattleUploadModal />
+          </Modal>
+        )}
+      </FlexBox>
+    </>
   );
 };
 

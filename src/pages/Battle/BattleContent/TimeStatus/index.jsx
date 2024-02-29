@@ -1,4 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback } from 'react';
+
+/*
+status가 바뀔때 reload로 새로고침해서 입장으로 변경
+많은 고민이 필요
+대회 진행 예정 한시간 이전부터는 버튼 비활성화
+*/
 
 const TimeStatus = ({ status, setStatus, start, end }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -13,9 +20,11 @@ const TimeStatus = ({ status, setStatus, start, end }) => {
 
   useEffect(() => {
     if (status === 'prev' && start < currentTime) {
-      setStatus('current');
+      window.location.reload();
+      // setStatus('current');
     } else if (status === 'current' && end < currentTime) {
-      setStatus('next');
+      window.location.reload();
+      // setStatus('next');
     }
   }, [currentTime, status, start, end]);
 
