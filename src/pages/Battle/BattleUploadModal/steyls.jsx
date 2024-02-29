@@ -93,7 +93,7 @@ export const InputIdBox = styled.input`
   border: 1px solid #000;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
-  color: #000;
+  color: ${(props) => (props.error === 'true' ? '#FF0000' : '#000')};
   font-family: 'NanumSquare Neo variable';
   font-size: 16px;
   font-weight: 500;

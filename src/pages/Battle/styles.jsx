@@ -64,4 +64,8 @@ export const UploadButtonWrapper = styled.div`
   justify-content: end;
   width: 100%;
   padding: 20px 0;
+
+  > svg {
+    cursor: pointer;
+  }
 `;
