@@ -69,7 +69,7 @@ export const IdBox = styled.input`
 export const IdWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 302px;
+  width: 314px;
 `;
 
 export const DoubleCheck = styled.button`
@@ -97,7 +97,7 @@ export const StyleCheckIcon = styled(CheckIcon)`
   position: absolute;
 
   top: 8px;
-  left: 200px;
+  left: 212px;
 `;
 
 export const IdErrorText = styled.p`
@@ -279,7 +279,7 @@ export const EmailSendButton = styled.button`
 
 export const EmailWrapper = styled.div`
   display: flex;
-  width: 306px;
+  width: 314px;
 `;
 
 export const AuthenticNumber = styled.input`
@@ -291,7 +291,7 @@ export const AuthenticNumber = styled.input`
 
 export const AuthenticWrapper = styled.div`
   display: flex;
-  width: 306px;
+  width: 314px;
   margin-bottom: 20px;
 `;
 
