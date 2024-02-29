@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as EmailIcon } from '@assets/EmailIcon.svg';
 import { ReactComponent as KeyIcon } from '@assets/KeyIcon.svg';
 import { ReactComponent as LockIcon } from '@assets/LockIcon.svg';
+import { ReactComponent as IDIcon } from '@assets/IDIcon.svg';
 
 const fontStyled = css`
   color: #000;
@@ -30,16 +31,14 @@ export const FindPasswordTitle = styled.div`
 
   margin-top: 40px;
   margin-bottom: 50px;
-  //background-color: yellow;
 `;
 
 export const EmailBox = styled.input`
-  // 이거 왜 InputStyle로 만들어서  가져다 쓰면 런타임 에러 나는거지?
   display: flex;
   justify-content: center;
-  ${fontStyled}
 
   margin-left: 4px;
+  margin-bottom: 4px;
   border: none;
   width: 200px;
   background: none;
@@ -56,8 +55,6 @@ export const EmailBox = styled.input`
   &::placeholder {
     color: #b0b0b0;
   }
-
-  //background-color: yellow;
 `;
 
 export const EmailWrapper = styled.div`
@@ -78,6 +75,16 @@ export const EmailWrapper = styled.div`
 `;
 
 export const StyleEmailIcon = styled(EmailIcon)`
+  width: 16px;
+  height: 16px;
+  margin: 12px;
+
+  & path {
+    fill: ${(props) => props.color};
+  }
+`;
+
+export const StyleIdIcon = styled(IDIcon)`
   width: 16px;
   height: 16px;
   margin: 12px;
@@ -157,14 +164,11 @@ export const KeynumberWrapper = styled.div`
   margin: 0 auto;
   margin-bottom: 10px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  //background-color: yellow;
 `;
 
 export const KeynumberBox = styled.input`
-  // 이거 왜 InputStyle로 만들어서  가져다 쓰면 런타임 에러 나는거지?
   display: flex;
   justify-content: center;
-  ${fontStyled}
   margin-left: 4px;
 
   border: none;
@@ -182,8 +186,6 @@ export const KeynumberBox = styled.input`
   &::placeholder {
     color: #b0b0b0;
   }
-
-  //background-color: yellow;
 `;
 
 export const CheckButton = styled.button`
@@ -224,7 +226,7 @@ export const NewPasswordWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  width: 320px;
+  width: 312px;
   height: 40px;
 
   border-radius: 3px;
@@ -232,16 +234,15 @@ export const NewPasswordWrapper = styled.div`
   border-color: ${(props) => props.color};
 
   margin: 0 auto;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  //background-color: yellow;
 
   position: relative;
 `;
 
 export const PasswordError = styled.p`
   position: absolute;
-  top: 88px;
+  top: 96px;
   right: 0px;
   color: #f00;
   text-align: center;
@@ -269,15 +270,13 @@ export const NewPasswordBox = styled.input`
   &::placeholder {
     color: #726c6c;
   }
-
-  //background-color: yellow;
 `;
 
 export const RePasswordWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  width: 320px;
+  width: 312px;
   height: 40px;
 
   border-radius: 3px;
@@ -287,7 +286,6 @@ export const RePasswordWrapper = styled.div`
   margin: 0 auto;
   margin-bottom: 10px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
-  //background-color: yellow;
 `;
 
 export const RePasswordBox = styled.input`
