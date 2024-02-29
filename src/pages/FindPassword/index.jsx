@@ -22,13 +22,17 @@ import {
   EmailError,
   KeynumberError,
   PasswordError,
+  StyleIdIcon,
 } from './styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const FindPassword = () => {
   const [email, SetEmail] = useState('');
   const [keynumber, SetKeynumber] = useState('');
   const [newpassword, SetNewPassword] = useState('');
   const [repassword, SetRePassword] = useState('');
+  const [id, SetId] = useState('');
 
   const [emailConfirm, setEmailConfirm] = useState(false);
   const [emailError, setEmailError] = useState(false);
@@ -36,10 +40,17 @@ const FindPassword = () => {
   const [newpasswordError, setNewPasswordError] = useState(false);
   const [repassError, setRepassError] = useState(false);
 
+  const navigate = useNavigate();
+
   const onChangeEmail = useCallback((e) => {
     SetEmail(e.target.value);
   }, []);
 
+  const onChangeId = useCallback((e) => {
+    SetId(e.target.value);
+  }, []);
+
+  //인증번호 틀릴경우 처리 필요
   const onChangeKeynumber = useCallback((e) => {
     SetKeynumber(e.target.value);
   }, []);
@@ -65,11 +76,6 @@ const FindPassword = () => {
     [newpassword, repassword]
   );
 
-  // const handleSendButtonClick = () => {
-  //   // 이메일 전송 처리를 여기에 추가
-  //   console.log('이메일을 전송합니다:', email);
-  // };
-
   const hanldeCheckButton = useCallback(() => {
     console.log('인증번호 확인 버튼 클릭');
 
@@ -80,13 +86,74 @@ const FindPassword = () => {
     // setKeynumberError(true)
   }, []);
 
+  const handleSubmit = useCallback(() => {
+    axios
+      .post('http://52.78.34.140:8080/users/send', {
+        email: email,
+        loginId: id,
+      })
+      .then((res) => {
+        console.log(res);
+        if (!res.data) {
+          setEmailError(true);
+        } else {
+          setEmailError(false);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [email, id]);
+
+  const handleVerification = useCallback(() => {
+    axios
+      .post('http://52.78.34.140:8080/users/find', {
+        email: email,
+        verificationCode: keynumber,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          setEmailConfirm(true);
+          setKeynumberError(false);
+        } else {
+          setKeynumberError(true);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [email, keynumber]);
+
+  const handlePasswordUpate = useCallback(() => {
+    axios
+      .put('http://52.78.34.140:8080/users/update', {
+        loginId: id,
+        password: repassword,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          navigate('/');
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [id, repassword]);
+
   return (
     <FindPasswordWrapper>
       <FindPasswordTitle>비밀번호 재설정</FindPasswordTitle>
+      <NewPasswordWrapper color={emailConfirm ? '#b0b0b0' : '#404040'}>
+        <StyleIdIcon color={emailConfirm ? '#b0b0b0' : '#404040'} />
+        <Bar color={emailConfirm ? '#b0b0b0' : '#404040'} />
+        <NewPasswordBox
+          type='text'
+          placeholder='아이디를 입력해주세요'
+          value={id}
+          onChange={onChangeId}
+          disabled={emailConfirm}
+        />
+      </NewPasswordWrapper>
       <LineWrapper>
-        <EmailWrapper color={emailConfirm ? '#b0b0b0' : '#000'}>
-          <StyleEmailIcon color={emailConfirm ? '#b0b0b0' : '#000'} />
-          <Bar color={emailConfirm ? '#b0b0b0' : '#000'} />
+        <EmailWrapper color={emailConfirm ? '#b0b0b0' : '#404040'}>
+          <StyleEmailIcon color={emailConfirm ? '#b0b0b0' : '#404040'} />
+          <Bar color={emailConfirm ? '#b0b0b0' : '#404040'} />
           <EmailBox
             type='text'
             placeholder='이메일을 입력해주세요'
@@ -96,8 +163,8 @@ const FindPassword = () => {
           />
         </EmailWrapper>
         <SendButton
-          onClick={hanldeCheckButton}
-          color={emailConfirm ? '#b0b0b0' : '#000'}
+          onClick={handleSubmit}
+          color={emailConfirm ? '#b0b0b0' : '#404040'}
           disabled={emailConfirm}
         >
           전송
@@ -108,9 +175,9 @@ const FindPassword = () => {
       </LineWrapper>
 
       <LineWrapper>
-        <KeynumberWrapper color={emailConfirm ? '#b0b0b0' : '#000'}>
-          <StyleKeyIcon color={emailConfirm ? '#b0b0b0' : '#000'} />
-          <Bar color={emailConfirm ? '#b0b0b0' : '#000'} />
+        <KeynumberWrapper color={emailConfirm ? '#b0b0b0' : '#404040'}>
+          <StyleKeyIcon color={emailConfirm ? '#b0b0b0' : '#404040'} />
+          <Bar color={emailConfirm ? '#b0b0b0' : '#404040'} />
           <KeynumberBox
             type='text'
             placeholder='인증번호를 입력해주세요'
@@ -120,8 +187,8 @@ const FindPassword = () => {
           />
         </KeynumberWrapper>
         <CheckButton
-          onClick={hanldeCheckButton}
-          color={emailConfirm ? '#b0b0b0' : '#000'}
+          onClick={handleVerification}
+          color={emailConfirm ? '#b0b0b0' : '#404040'}
           disabled={emailConfirm}
         >
           확인
@@ -133,9 +200,9 @@ const FindPassword = () => {
 
       <CenterBar />
 
-      <NewPasswordWrapper color={emailConfirm ? '#000' : '#b0b0b0'}>
-        <StyleLockIcon color={emailConfirm ? '#000' : '#b0b0b0'} />
-        <Bar color={emailConfirm ? '#000' : '#b0b0b0'} />
+      <NewPasswordWrapper color={emailConfirm ? '#404040' : '#b0b0b0'}>
+        <StyleLockIcon color={emailConfirm ? '#404040' : '#b0b0b0'} />
+        <Bar color={emailConfirm ? '#404040' : '#b0b0b0'} />
         <NewPasswordBox
           type='password'
           placeholder='새로운 비밀번호를 입력해주세요'
@@ -154,9 +221,9 @@ const FindPassword = () => {
         )}
       </NewPasswordWrapper>
 
-      <RePasswordWrapper color={emailConfirm ? '#000' : '#b0b0b0'}>
-        <StyleLockIcon color={emailConfirm ? '#000' : '#b0b0b0'} />
-        <Bar color={emailConfirm ? '#000' : '#b0b0b0'} />
+      <RePasswordWrapper color={emailConfirm ? '#404040' : '#b0b0b0'}>
+        <StyleLockIcon color={emailConfirm ? '#404040' : '#b0b0b0'} />
+        <Bar color={emailConfirm ? '#404040' : '#b0b0b0'} />
         <RePasswordBox
           type='password'
           placeholder='비밀번호를 다시 입력해주세요'
@@ -167,10 +234,10 @@ const FindPassword = () => {
       </RePasswordWrapper>
 
       <RePasswordButton
-        onClick={hanldeCheckButton}
+        onClick={handlePasswordUpate}
         color={
           repassword !== '' && !repassError && !newpasswordError
-            ? '#000'
+            ? '#404040'
             : '#b0b0b0'
         }
         disabled={!(repassword !== '' && !repassError && !newpasswordError)}

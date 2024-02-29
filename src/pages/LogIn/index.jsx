@@ -18,12 +18,16 @@ import {
   LoginButton,
   IdPasswordError,
 } from './styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
-  //eslint-disable-next-line no-unused-vars
   const [id, setId] = useState('');
-  //eslint-disable-next-line no-unused-vars
   const [pass, setPass] = useState('');
+
+  const [idpasswordError, setIdPasswordError] = useState(false);
+
+  const navigate = useNavigate();
 
   const onChangeId = useCallback((e) => {
     setId(e.target.value);
@@ -33,8 +37,27 @@ const LogIn = () => {
     setPass(e.target.value);
   }, []);
 
-  //eslint-disable-next-line no-unused-vars
-  const [idpasswordError, setIdPasswordError] = useState(true);
+  const onChangeClick = useCallback(() => {
+    axios
+      .post('http://52.78.34.140:8080/users/sign-in', {
+        loginId: id,
+        password: pass,
+      })
+      .then((res) => {
+        console.log(res);
+
+        if (!res?.accessToken) {
+          // alert('로그인 실패');
+          setIdPasswordError(true);
+        } else {
+          localStorage.setItem('accessToken', res.data.accessToken);
+          localStorage.setItem('refershToken', res.data.refreshToken);
+          setIdPasswordError(false);
+          navigate('/');
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [id, pass]);
 
   return (
     <LogInWrapper>
@@ -75,7 +98,7 @@ const LogIn = () => {
           </IdPasswordError>
         )}
       </OptionWrapper>
-      <LoginButton>로그인</LoginButton>
+      <LoginButton onClick={onChangeClick}>로그인</LoginButton>
     </LogInWrapper>
   );
 };

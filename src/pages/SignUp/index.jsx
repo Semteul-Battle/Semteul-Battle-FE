@@ -1,5 +1,3 @@
-// eslint-disable no-unused-vars
-
 import React, { useCallback, useState } from 'react';
 import {
   SignUpTitle,
@@ -31,6 +29,8 @@ import {
   AuthenticNumber,
   AuthenticNumberError,
 } from './styles';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [id, SetId] = useState('');
@@ -109,19 +109,81 @@ const SignUp = () => {
       !passwordmismatchError &&
       !nameError &&
       !emailError &&
-      !authenticnumberError
+      !authenticnumberError &&
+      password &&
+      repassword &&
+      name &&
+      email
     );
   };
 
-  const handleSignUp = () => {
-    if (isAllValid()) {
-      console.log('회원가입이 완료되었습니다.');
-    }
-  };
+  const navigate = useNavigate();
 
-  const handleButtonCheck = () => {
-    console.log('버튼 확인');
-  };
+  const handleSignUp = useCallback(() => {
+    {
+      axios
+        .post('http://52.78.34.140:8080/users/sign-up', {
+          loginId: id,
+          password: password,
+          name: name,
+          email: email,
+          major: depart,
+          university: school,
+        })
+        .then((res) => {
+          if (isAllValid()) {
+            console.log('회원가입이 완료되었습니다.');
+            navigate('/');
+          }
+        })
+        .catch((err) => console.error(err));
+    }
+  }, [id, password, name, email, depart, school]);
+
+  const onChangeDoubleCheck = useCallback(() => {
+    axios
+      .get('http://52.78.34.140:8080/users/id-check', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        params: {
+          loginId: id,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (!res.data) {
+          setIdError(true);
+        } else {
+          setIdError(false);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
+
+  const handleEmail = useCallback(() => {
+    axios
+      .post('http://52.78.34.140:8080/users/send-email', {
+        loginId: id,
+        email: email,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
+  }, [id, email]);
+
+  const handleVerification = useCallback(() => {
+    axios
+      .post('http://52.78.34.140:8080/users/verification', {
+        email: email,
+        verificationCode: authenticnumber,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
+  }, [email, authenticnumber]);
 
   return (
     <SignUpWrapper>
@@ -137,7 +199,7 @@ const SignUp = () => {
           //disabled={}
         ></IdBox>
         {!idError && <StyleCheckIcon />}
-        <DoubleCheck onClick={handleButtonCheck}>중복체크</DoubleCheck>
+        <DoubleCheck onClick={onChangeDoubleCheck}>중복체크</DoubleCheck>
 
         {idError && <IdErrorText>이미 존재하는 아이디입니다.</IdErrorText>}
         {passwordError ? (
@@ -195,7 +257,7 @@ const SignUp = () => {
           value={email}
           onChange={onChangeEmail}
         />
-        <EmailSendButton onClick={handleButtonCheck}>전송</EmailSendButton>
+        <EmailSendButton onClick={handleEmail}>전송</EmailSendButton>
       </EmailWrapper>
 
       <Text>인증번호</Text>
@@ -206,7 +268,7 @@ const SignUp = () => {
           value={authenticnumber}
           onChange={onChangeAuthenticNumber}
         />
-        <AuthenticSendButton onClick={handleButtonCheck}>
+        <AuthenticSendButton onClick={handleVerification}>
           확인
         </AuthenticSendButton>
       </AuthenticWrapper>
