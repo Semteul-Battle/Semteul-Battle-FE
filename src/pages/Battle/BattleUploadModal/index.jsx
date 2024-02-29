@@ -11,16 +11,16 @@ import {
   TextBoxCenter,
   DateContaner,
   UploadButtonContainer,
+  DeleteExaminer,
 } from './steyls';
 import BattleRoleSelect from '@components/BttleRoleSelect';
 import BattleDayPicekr from '@components/BattleDayPicekr';
 import dayjs from 'dayjs';
 import api from 'utils/api';
 
-const BattleUploadModal = () => {
+const BattleUploadModal = ({ setModalOpen }) => {
   const [title, setTitle] = useState('');
   const [role, setRole] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [examiners, setExmainers] = useState([]);
   const [addExaminer, setAddExaminer] = useState('');
   const [examinerError, setExaminerError] = useState(false);
@@ -69,6 +69,15 @@ const BattleUploadModal = () => {
     [examiners, addExaminer]
   );
 
+  const deleteExaminer = useCallback(
+    (selectedExaminer) => {
+      setExmainers(
+        examiners.filter((examiner) => examiner !== selectedExaminer)
+      );
+    },
+    [examiners]
+  );
+
   const openStartCalendar = useCallback(() => {
     setCalendarMode('start');
     setIsCalendarOpen(true);
@@ -79,8 +88,20 @@ const BattleUploadModal = () => {
     setIsCalendarOpen(true);
   }, []);
 
-  const handleUploadBattle = useCallback(() => {}, []);
-  console.log(examinerError);
+  const handleUploadBattle = useCallback(() => {
+    api
+      .post('/contest/contestCreate', {
+        contestName: title,
+        examinerUsernames: examiners,
+        enterAuthority: role === '동아리' ? 0 : 1,
+        startTime: startDate,
+        endTime: endDate,
+        contestHost: 1,
+      })
+      .then((res) => setModalOpen(false))
+      .catch((err) => console.error(err));
+  }, [title, examiners, role, startDate, endDate]);
+
   return (
     <>
       <FlexBox>
@@ -99,6 +120,9 @@ const BattleUploadModal = () => {
               <TextBoxWrapper key={index}>
                 <TextBox notfound={examinerError.toString()}>
                   <p>{examiner}</p>
+                  <DeleteExaminer onClick={() => deleteExaminer(examiner)}>
+                    &times;
+                  </DeleteExaminer>
                 </TextBox>
               </TextBoxWrapper>
             ))}
@@ -132,7 +156,12 @@ const BattleUploadModal = () => {
           </DateContaner>
         </BoxWrapper>
         <UploadButtonContainer>
-          <button onClick={handleUploadBattle}>
+          <button
+            onClick={handleUploadBattle}
+            disabled={
+              !(title && role && examiners.length > 0 && startDate && endDate)
+            }
+          >
             <p>대회 등록</p>
           </button>
         </UploadButtonContainer>

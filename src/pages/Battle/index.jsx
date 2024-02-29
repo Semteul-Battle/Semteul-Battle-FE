@@ -141,7 +141,7 @@ const Battle = () => {
             height='fit-content'
             setModalOpen={setIsUploadModalOpen}
           >
-            <BattleUploadModal />
+            <BattleUploadModal setModalOpen={setIsUploadModalOpen} />
           </Modal>
         )}
       </FlexBox>

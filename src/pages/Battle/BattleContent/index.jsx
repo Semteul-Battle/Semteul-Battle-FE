@@ -32,23 +32,16 @@ const BattleContent = ({ battle }) => {
 
   const getStatus = useCallback(() => {
     const currentTime = new Date();
-
+    console.log(battle.startTime);
     if (status === 'next') {
       return <p>종료</p>;
     }
     if (
       status === 'prev' &&
-      battle.startTime.getMilliseconds() - currentTime.getMilliseconds() >
-        1000 * 60 * 60 * 24
+      dayjs(battle.startTime).diff(dayjs(), 'day') >= 1
     ) {
       return (
-        <p>{`시작까지 ${parseInt(
-          (battle.startTime.getMilliseconds() - currentTime.getMilliseconds()) /
-            1000 /
-            60 /
-            60 /
-            24
-        )}일`}</p>
+        <p>{`시작까지 ${dayjs(battle.startTime).diff(dayjs(), 'day')}일`}</p>
       );
     }
 

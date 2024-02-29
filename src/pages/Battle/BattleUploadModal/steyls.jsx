@@ -65,6 +65,7 @@ export const TextBoxWrapper = styled.div`
 `;
 
 export const TextBox = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -82,6 +83,17 @@ export const TextBox = styled.div`
     font-weight: 500;
     line-height: 20px;
   }
+`;
+
+export const DeleteExaminer = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 12px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
 
 export const InputIdBox = styled.input`
@@ -159,6 +171,10 @@ export const UploadButtonContainer = styled.div`
       font-family: 'NanumSquare Neo variable';
       font-size: 20px;
       font-weight: 700;
+    }
+
+    &:disabled {
+      background: #9e9e9e;
     }
   }
 `;
