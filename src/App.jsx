@@ -8,6 +8,9 @@ import Introduction from '@pages/Introduction';
 import LogIn from '@pages/LogIn';
 import SignUp from '@pages/SignUp';
 import Header from '@layouts/Header';
+import FindPassword from '@pages/FindPassword';
+import NewBattle from '@pages/NewBattle';
+import DetailProblem from '@pages/NewBattle/DetailProblem';
 
 const App = () => {
   return (
@@ -21,6 +24,9 @@ const App = () => {
         <Route path='introduction' element={<Introduction />} />
         <Route path='login' element={<LogIn />} />
         <Route path='signup' element={<SignUp />} />
+        <Route path='findpassword' element={<FindPassword />} />
+        <Route path='newbattle' element={<NewBattle />} />
+        <Route path='detailproblem' element={<DetailProblem />} />
       </Routes>
     </>
   );

@@ -55,6 +55,11 @@ export const BattleTitle = styled.div`
     ${fontStyle}
     text-align: start;
   }
+
+  &:last-child {
+    background: #ea173d;
+    border-bottom: 1px soild #000;
+  }
 `;
 
 export const BattleStartTime = styled.div`

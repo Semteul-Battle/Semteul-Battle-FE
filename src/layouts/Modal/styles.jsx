@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Overlay = styled.div`
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   inset: 0;
