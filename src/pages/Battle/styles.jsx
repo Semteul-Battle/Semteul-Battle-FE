@@ -55,11 +55,6 @@ export const BattleTitle = styled.div`
     ${fontStyle}
     text-align: start;
   }
-
-  &:last-child {
-    background: red;
-    border-bottom: 1px soild #000;
-  }
 `;
 
 export const BattleStartTime = styled.div`
@@ -100,4 +95,11 @@ export const BattleButton = styled.div`
 
 export const BattleList = styled.div`
   width: 100%;
+`;
+
+export const UploadButtonWrapper = styled.div`
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 20px 0;
 `;
