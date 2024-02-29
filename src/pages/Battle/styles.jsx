@@ -47,54 +47,11 @@ export const BattleInfoWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export const BattleTitle = styled.div`
-  width: 25%;
-  background: red;
+export const HeadRow = styled.div`
+  width: ${(props) => props.width};
 
   > p {
-    ${fontStyle}
-    text-align: start;
-  }
-
-  &:last-child {
-    background: #ea173d;
-    border-bottom: 1px soild #000;
-  }
-`;
-
-export const BattleStartTime = styled.div`
-  width: 25%;
-  background: blue;
-
-  > p {
-    ${fontStyle}
-  }
-`;
-
-export const BattleDuration = styled.div`
-  width: 15%;
-  background: green;
-
-  > p {
-    ${fontStyle}
-  }
-`;
-
-export const BattleStatus = styled.div`
-  width: 20%;
-  background: yellow;
-
-  > p {
-    ${fontStyle}
-  }
-`;
-
-export const BattleButton = styled.div`
-  width: 15%;
-  background: purple;
-
-  > p {
-    ${fontStyle}
+    ${fontStyle};
   }
 `;
 

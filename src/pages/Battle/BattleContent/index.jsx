@@ -2,44 +2,33 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   ButtonWrapper,
+  ContentRow,
   ContentWrapper,
-  Duration,
-  StartTime,
-  Status,
-  Title,
 } from '@pages/Battle/BattleContent/styles';
 import TimeStatus from '@pages/Battle/BattleContent/TimeStatus';
+import dayjs from 'dayjs';
 
 const BattleContent = ({ battle }) => {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
     const currentTime = new Date();
+    const startTime = new Date(battle.startTime);
+    const endTime = new Date(battle.endTime);
 
-    if (battle.start > currentTime) {
+    if (startTime > currentTime) {
       setStatus('prev');
-    } else if (battle.end < currentTime) {
+    } else if (endTime < currentTime) {
       setStatus('next');
     } else {
       setStatus('current');
     }
-  }, [battle.start, battle.end]);
-
-  const getStartTimeString = useCallback(() => {
-    const start = new Date(battle.start);
-    start.setHours(start.getHours() + 9);
-
-    const [dateString, timeString] = start.toISOString().split('T');
-    const [years, months, days] = dateString.split('-');
-    const time = timeString.substring(0, 5);
-
-    return `${years}년 ${months}월 ${days}일 ${time}`;
-  }, [battle.start]);
+  }, [battle]);
 
   const getDurationHour = useCallback(() => {
-    const duration = (battle.end - battle.start) / 1000 / 60 / 60;
+    const duration = dayjs(battle.endTime).diff(dayjs(battle.startTime), 'h');
     return duration % 1 === 0 ? duration : duration.toFixed(1);
-  }, [battle.start, battle.end]);
+  }, [battle]);
 
   const getStatus = useCallback(() => {
     const currentTime = new Date();
@@ -47,10 +36,18 @@ const BattleContent = ({ battle }) => {
     if (status === 'next') {
       return <p>종료</p>;
     }
-    if (status === 'prev' && battle.start - currentTime > 1000 * 60 * 60 * 24) {
+    if (
+      status === 'prev' &&
+      battle.startTime.getMilliseconds() - currentTime.getMilliseconds() >
+        1000 * 60 * 60 * 24
+    ) {
       return (
         <p>{`시작까지 ${parseInt(
-          (battle.start - currentTime) / 1000 / 60 / 60 / 24
+          (battle.startTime.getMilliseconds() - currentTime.getMilliseconds()) /
+            1000 /
+            60 /
+            60 /
+            24
         )}일`}</p>
       );
     }
@@ -59,11 +56,11 @@ const BattleContent = ({ battle }) => {
       <TimeStatus
         status={status}
         setStatus={setStatus}
-        start={battle.start}
-        end={battle.end}
+        start={battle.startTime}
+        end={battle.endTime}
       />
     );
-  }, [status, battle.start, battle.end]);
+  }, [status, battle.startTime, battle.endTime]);
 
   const getButton = useCallback(() => {
     if (status === 'prev') {
@@ -76,16 +73,18 @@ const BattleContent = ({ battle }) => {
 
   return (
     <ContentWrapper>
-      <Title>
-        <p>{battle.name}</p>
-      </Title>
-      <StartTime>
-        <p>{getStartTimeString()}</p>
-      </StartTime>
-      <Duration>
-        <p>{getDurationHour()}시간</p>
-      </Duration>
-      <Status>{getStatus()}</Status>
+      <ContentRow width='25%'>
+        <p>{battle.contestName}</p>
+      </ContentRow>
+      <ContentRow width='25%'>
+        <p>{dayjs(battle.startTime).format('YYYY년 MM월 DD일 HH:mm')}</p>
+      </ContentRow>
+      <ContentRow width='15%'>
+        <p>{getDurationHour()}</p>
+      </ContentRow>
+      <ContentRow width='20%'>
+        <p>{getStatus()}</p>
+      </ContentRow>
       <ButtonWrapper>{getButton()}</ButtonWrapper>
     </ContentWrapper>
   );

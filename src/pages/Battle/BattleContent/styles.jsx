@@ -29,27 +29,11 @@ export const Title = styled.div`
   }
 `;
 
-export const StartTime = styled.div`
-  width: 25%;
+export const ContentRow = styled.div`
+  width: ${(props) => props.width};
 
   > p {
-    ${fontStyle}
-  }
-`;
-
-export const Duration = styled.div`
-  width: 15%;
-
-  > p {
-    ${fontStyle}
-  }
-`;
-
-export const Status = styled.div`
-  width: 20%;
-
-  > p {
-    ${fontStyle}
+    ${fontStyle};
   }
 `;
 
