@@ -11,16 +11,41 @@ import {
   SaveButton,
   AdditionButton,
   RightWrapper,
-  AddGradeFile,
-  StyleAddIcon,
-  StyleCircleIcon,
 } from './style';
+import { StyleDeleteIcon } from '../style';
 
 const DetailProblem = () => {
-  const [exampleCount, setExampleCount] = useState(1); // 예시 개수를 관리하는 상태
+  const [inputOutputExamples, setInputOutputExamples] = useState([
+    { input: '', output: '' },
+  ]);
+  const [gradingExamples, setGradingExamples] = useState([
+    { input: '', output: '' },
+  ]);
 
-  const addExample = () => {
-    setExampleCount((prevCount) => prevCount + 1); // 예시 개수를 1 증가시킴
+  const addInputOutputExample = () => {
+    setInputOutputExamples((prevExamples) => [
+      ...prevExamples,
+      { input: '', output: '' },
+    ]);
+  };
+
+  const addGradingExample = () => {
+    setGradingExamples((prevExamples) => [
+      ...prevExamples,
+      { input: '', output: '' },
+    ]);
+  };
+
+  const deleteInputOutputExample = (index) => {
+    setInputOutputExamples((prevExamples) =>
+      prevExamples.filter((_, i) => i !== index)
+    );
+  };
+
+  const deleteGradingExample = (index) => {
+    setGradingExamples((prevExamples) =>
+      prevExamples.filter((_, i) => i !== index)
+    );
   };
 
   return (
@@ -49,41 +74,90 @@ const DetailProblem = () => {
       <InputBox width='100%' height='76px' placeholder='내용을 입력하세요' />
 
       <InoutputWrapper style={{ flexDirection: 'column' }}>
-        {[...Array(exampleCount)].map(
-          (
-            _,
-            index // 예시 개수만큼 반복해서 렌더링
-          ) => (
-            <LineWrapper key={index}>
-              <LeftWrapper>
-                <SubTitle>입력 예시 {index + 1}</SubTitle>
-                <InputBox
-                  width='400px'
-                  height='150px'
-                  placeholder='내용을 입력하세요'
+        {inputOutputExamples.map((example, index) => (
+          <LineWrapper key={index}>
+            <LeftWrapper>
+              <SubTitle>입력 예시 {index + 1}</SubTitle>
+              <InputBox
+                width='400px'
+                height='150px'
+                placeholder='내용을 입력하세요'
+                value={example.input}
+                onChange={(e) => {
+                  const updatedExamples = [...inputOutputExamples];
+                  updatedExamples[index].input = e.target.value;
+                  setInputOutputExamples(updatedExamples);
+                }}
+              />
+            </LeftWrapper>
+            <RightWrapper>
+              <SubTitle>
+                출력 예시 {index + 1}{' '}
+                <StyleDeleteIcon
+                  onClick={() => deleteInputOutputExample(index)}
                 />
-              </LeftWrapper>
-              <RightWrapper>
-                <SubTitle>출력 예시 {index + 1}</SubTitle>
-                <InputBox
-                  width='400px'
-                  height='150px'
-                  placeholder='내용을 입력하세요'
-                />
-              </RightWrapper>
-            </LineWrapper>
-          )
-        )}
+              </SubTitle>
+              <InputBox
+                width='400px'
+                height='150px'
+                placeholder='내용을 입력하세요'
+                value={example.output}
+                onChange={(e) => {
+                  const updatedExamples = [...inputOutputExamples];
+                  updatedExamples[index].output = e.target.value;
+                  setInputOutputExamples(updatedExamples);
+                }}
+              />
+            </RightWrapper>
+          </LineWrapper>
+        ))}
       </InoutputWrapper>
 
-      <AdditionButton onClick={addExample}>입출력 예시 추가</AdditionButton>
+      <AdditionButton onClick={addInputOutputExample}>
+        입출력 예시 추가
+      </AdditionButton>
 
-      <AddGradeFile>
-        채점 파일 input <StyleAddIcon /> <StyleCircleIcon />
-      </AddGradeFile>
-      <AddGradeFile>
-        채점 파일 output <StyleAddIcon /> <StyleCircleIcon />
-      </AddGradeFile>
+      <InoutputWrapper style={{ flexDirection: 'column' }}>
+        {gradingExamples.map((example, index) => (
+          <LineWrapper key={index}>
+            <LeftWrapper>
+              <SubTitle>채점 입력 {index + 1}</SubTitle>
+              <InputBox
+                width='400px'
+                height='150px'
+                placeholder='내용을 입력하세요'
+                value={example.input}
+                onChange={(e) => {
+                  const updatedExamples = [...gradingExamples];
+                  updatedExamples[index].input = e.target.value;
+                  setGradingExamples(updatedExamples);
+                }}
+              />
+            </LeftWrapper>
+            <RightWrapper>
+              <SubTitle>
+                채점 출력 {index + 1}{' '}
+                <StyleDeleteIcon onClick={() => deleteGradingExample(index)} />
+              </SubTitle>
+              <InputBox
+                width='400px'
+                height='150px'
+                placeholder='내용을 입력하세요'
+                value={example.output}
+                onChange={(e) => {
+                  const updatedExamples = [...gradingExamples];
+                  updatedExamples[index].output = e.target.value;
+                  setGradingExamples(updatedExamples);
+                }}
+              />
+            </RightWrapper>
+          </LineWrapper>
+        ))}
+      </InoutputWrapper>
+
+      <AdditionButton onClick={addGradingExample}>
+        채점 예시 추가
+      </AdditionButton>
 
       <SaveButton>저장</SaveButton>
     </DetailProblemWrapper>

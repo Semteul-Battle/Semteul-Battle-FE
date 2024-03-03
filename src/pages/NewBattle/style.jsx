@@ -280,3 +280,10 @@ export const StyleDeleteIcon = styled(DeleteIcon)`
     cursor: pointer;
   }
 `;
+export const DateContaner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 470px;
+`;

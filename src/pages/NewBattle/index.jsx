@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Modal from '@layouts/Modal';
 import { useNavigate } from 'react-router-dom';
-
+import BattleDayPicekr from '@components/BattleDayPicekr';
+import { TextBoxCenter } from '@pages/Battle/BattleUploadModal/steyls';
+import dayjs from 'dayjs';
+import axios from 'axios';
+import api from 'utils/api';
 import {
   HeaderWrapper,
   NewBattleTitle,
@@ -36,6 +40,7 @@ import {
   CheckButton,
   CheckButtonWrapper,
   StyleDeleteIcon,
+  DateContaner,
 } from './style';
 
 const NewBattle = () => {
@@ -45,7 +50,54 @@ const NewBattle = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [BattlemodalOpen, setBattlemodalOpen] = useState(false);
 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [calendarMode, setCalendarMode] = useState('');
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+
+  const handleAdd = useCallback(() => {
+    api
+      .post('/contests/addProblem', {
+        number: null,
+        title: null,
+        content: null,
+        input: null,
+        output: null,
+        timeLimit: null,
+        score: 0,
+        pic: [],
+        inputExample: null,
+        outputExample: null,
+        contestId: 1,
+      })
+      .then((res) => {
+        console.log(res);
+        api
+          .get('contests/problemInfo', {
+            params: {
+              contestId: 1,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            setProblems(res.data);
+          });
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const openStartCalendar = useCallback(() => {
+    setCalendarMode('start');
+    setIsCalendarOpen(true);
+  }, []);
+
+  const openEndCalendar = useCallback(() => {
+    setCalendarMode('end');
+    setIsCalendarOpen(true);
+  }, []);
+
   const onCreate = () => {
+    handleAdd();
     const newProblem = {
       id: problems.length + 1,
       title: '-',
@@ -115,7 +167,9 @@ const NewBattle = () => {
           <HeaderWrapper>
             <LeftWrapper>
               <NewBattleTitle>새로 만든 대회</NewBattleTitle>
-              <CustomDateWrapper>----년 --월 --일 --:--</CustomDateWrapper>
+              <CustomDateWrapper>
+                {startDate && dayjs(startDate).format('YYYY.MM.DD / HH:mm')}
+              </CustomDateWrapper>
               <StyleSettingIcon onClick={() => setModalOpen(true)} />
             </LeftWrapper>
             <RightWrapper>
@@ -192,8 +246,27 @@ const NewBattle = () => {
               <InputBox type='text' />
 
               <Text>시간 설정</Text>
-              <InputBox type='text' />
-              <InputBox type='text' />
+
+              <BattleDayPicekr
+                isOpen={isCalendarOpen}
+                setIsOpen={setIsCalendarOpen}
+                date={calendarMode === 'start' ? startDate : endDate}
+                setDate={calendarMode === 'start' ? setStartDate : setEndDate}
+              />
+
+              <DateContaner>
+                <TextBoxCenter onClick={openStartCalendar}>
+                  <p>
+                    {startDate && dayjs(startDate).format('YYYY.MM.DD / HH:mm')}
+                  </p>
+                </TextBoxCenter>
+                <span>~</span>
+                <TextBoxCenter onClick={openEndCalendar}>
+                  <p>
+                    {endDate && dayjs(endDate).format('YYYY.MM.DD / HH:mm')}
+                  </p>
+                </TextBoxCenter>
+              </DateContaner>
 
               <Text>간략 소개</Text>
               <InputBox type='text' width='466px' height='120px' />
