@@ -18,7 +18,7 @@ import {
   LoginButton,
   IdPasswordError,
 } from './styles';
-import axios from 'axios';
+import api from 'utils/api';
 import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
@@ -38,23 +38,32 @@ const LogIn = () => {
   }, []);
 
   const onChangeClick = useCallback(() => {
-    axios
-      .post('http://52.78.34.140:8080/users/sign-in', {
+    api
+      .post('/users/sign-in', {
         loginId: id,
         password: pass,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
 
-        if (!res?.accessToken) {
-          // alert('로그인 실패');
-          setIdPasswordError(true);
-        } else {
-          localStorage.setItem('accessToken', res.data.accessToken);
-          localStorage.setItem('refershToken', res.data.refreshToken);
-          setIdPasswordError(false);
-          navigate('/');
-        }
+        // if (!res?.accessToken) {
+        //   // alert('로그인 실패');
+        //   setIdPasswordError(true);
+        // } else {
+        //   localStorage.setItem('accessToken', res.data.accessToken);
+        //   localStorage.setItem('refershToken', res.data.refreshToken);
+        //   setIdPasswordError(false);
+        //   navigate('/');
+        // }
+        console.log(res);
+        console.log(res.data.split('accessToken=')[1].split(',')[0]);
+        localStorage.setItem(
+          'accessToken',
+          res.data.split('accessToken=')[1].split(',')[0]
+        );
+        localStorage.setItem('refershToken', res.data.refreshToken);
+        setIdPasswordError(false);
+        navigate('/');
       })
       .catch((err) => console.error(err));
   }, [id, pass]);
